@@ -24,7 +24,7 @@ def run_spider(domain):
                 yield item
 
     # Clear any previous signals to avoid conflicts
-    dispatcher.disconnectAll()
+    # dispatcher.disconnectAll()  # Removed due to pydispatcher error
 
     # Setup crawler process with project settings
     process = CrawlerProcess(get_project_settings())
