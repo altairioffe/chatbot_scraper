@@ -1,11 +1,11 @@
 import scrapy
 import re
 
-class RoomvoSpider(scrapy.Spider):
-    name = "roomvo"
+class GenericSpider(scrapy.Spider):
+    name = "generic"
     
     def __init__(self, domain=None, *args, **kwargs):
-        super(RoomvoSpider, self).__init__(*args, **kwargs)
+        super(GenericSpider, self).__init__(*args, **kwargs)
         if domain:
             domain = domain.strip().lower().replace("https://", "").replace("http://", "").replace("www.", "")
             self.allowed_domains = [domain]

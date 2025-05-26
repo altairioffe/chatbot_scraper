@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "roomvo_sitemap_scraper"
+BOT_NAME = "sitemap_scraper"
 
-SPIDER_MODULES = ["roomvo_sitemap_scraper.spiders"]
-NEWSPIDER_MODULE = "roomvo_sitemap_scraper.spiders"
+SPIDER_MODULES = ["spiders"]
+NEWSPIDER_MODULE = "spiders"
 
 ADDONS = {}
 
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "roomvo_sitemap_scraper.middlewares.RoomvoSitemapScraperSpiderMiddleware": 543,
+#    "sitemap_scraper.middlewares.SitemapScraperSpiderMiddleware": 543,
 #}
 #DOWNLOADER_MIDDLEWARES = {
-#    "roomvo_sitemap_scraper.middlewares.RoomvoSitemapScraperDownloaderMiddleware": 543,
+#    "sitemap_scraper.middlewares.SitemapScraperDownloaderMiddleware": 543,
 #}
 #ITEM_PIPELINES = {
-#    "roomvo_sitemap_scraper.pipelines.RoomvoSitemapScraperPipeline": 300,
+#    "sitemap_scraper.pipelines.SitemapScraperPipeline": 300,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "pioneerfloor_scraper.pipelines.PioneerfloorScraperPipeline": 300,
+#    "sitemap_scraper.pipelines.SitemapScraperPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

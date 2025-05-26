@@ -1,0 +1,11 @@
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore egg-info directories
+*.egg-info/
+roomvo_sitemap_scraper.egg-info/
+
+# Ignore virtual environment directory
+venv/
