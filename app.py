@@ -36,6 +36,7 @@ def run_spider_process(domain, queue):
 
         def parse(self, response):
             for item in super().parse(response):
+                print(f"DEBUG: Yielding item: {item}")
                 results.append(item)
                 yield item
 
@@ -52,7 +53,10 @@ def run_spider(domain):
     p.join()
     results = []
     while not queue.empty():
-        results.extend(queue.get())
+        batch = queue.get()
+        print(f"DEBUG: Retrieved batch of {len(batch)} items from queue")
+        results.extend(batch)
+    print(f"DEBUG: Total results collected: {len(results)}")
     return results
 
 def main():
