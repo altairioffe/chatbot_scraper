@@ -5,12 +5,17 @@ import os
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from spiders.generic_sitemap import GenericSitemapSpider
-import asyncio
-from twisted.internet import asyncioreactor
-try:
-    asyncioreactor.install()
-except Exception:
-    pass
+import sys
+
+# Install AsyncioSelectorReactor as early as possible before any other Twisted imports
+if not hasattr(sys, "is_asyncio_reactor_installed"):
+    from twisted.internet import asyncioreactor
+    try:
+        asyncioreactor.install()
+        sys.is_asyncio_reactor_installed = True
+    except Exception:
+        pass
+
 from twisted.internet import reactor, defer
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
