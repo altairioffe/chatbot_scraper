@@ -20,11 +20,16 @@ from twisted.internet import reactor, defer
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
 
-# Function to run the spider and collect results
-def run_spider(domain):
+import multiprocessing
+import json
+
+def run_spider_process(domain, queue):
+    from scrapy.crawler import CrawlerProcess
+    from scrapy.utils.project import get_project_settings
+    from spiders.generic_sitemap import GenericSitemapSpider
+
     results = []
 
-    # Define a custom spider class that collects items
     class CollectingSpider(GenericSitemapSpider):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -34,16 +39,20 @@ def run_spider(domain):
                 results.append(item)
                 yield item
 
-    # Clear any previous signals to avoid conflicts
-    # dispatcher.disconnectAll()  # Removed due to pydispatcher error
-
-    # Setup crawler process with project settings
     process = CrawlerProcess(get_project_settings())
-
-    # Run the spider
     process.crawl(CollectingSpider, domain=domain)
-    process.start()  # the script will block here until the crawling is finished
+    process.start()
 
+    queue.put(results)
+
+def run_spider(domain):
+    queue = multiprocessing.Queue()
+    p = multiprocessing.Process(target=run_spider_process, args=(domain, queue))
+    p.start()
+    p.join()
+    results = []
+    while not queue.empty():
+        results.extend(queue.get())
     return results
 
 def main():
